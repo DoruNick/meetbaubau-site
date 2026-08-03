@@ -1,32 +1,656 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MeetBauBau</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            background: #000;
-            overflow-x: hidden;
-        }
+  <title>MeetBauBau</title>
 
-        video {
-            display: block;
-            width: 100%;
-            height: auto;
-        }
-    </style>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      background: #050307;
+      color: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #space {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(
+          circle at 72% 48%,
+          rgba(255, 91, 163, 0.16),
+          transparent 31%
+        ),
+        linear-gradient(
+          90deg,
+          rgba(5, 3, 7, 0.97) 0%,
+          rgba(5, 3, 7, 0.75) 48%,
+          rgba(5, 3, 7, 0.42) 100%
+        );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: min(1180px, calc(100% - 48px));
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      align-items: center;
+      gap: 35px;
+      padding: 70px 0;
+    }
+
+    .text-content {
+      position: relative;
+      z-index: 4;
+    }
+
+    .eyebrow {
+      margin: 0 0 16px;
+      color: #ffafd1;
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(70px, 10vw, 145px);
+      line-height: 0.82;
+      letter-spacing: -8px;
+    }
+
+    h1 span {
+      display: block;
+      color: #ff6fae;
+      text-shadow: 0 0 38px rgba(255, 111, 174, 0.32);
+    }
+
+    .tagline {
+      margin: 32px 0 12px;
+      font-size: clamp(22px, 2.5vw, 34px);
+      font-weight: bold;
+    }
+
+    .description {
+      max-width: 530px;
+      margin: 0;
+      color: #bdb4c1;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      min-height: 52px;
+      margin-top: 30px;
+      padding: 0 25px;
+      border-radius: 999px;
+      color: #190912;
+      background: linear-gradient(135deg, #ff9bc7, #ff5ca6);
+      box-shadow: 0 14px 35px rgba(255, 92, 166, 0.25);
+      font-weight: bold;
+      text-decoration: none;
+      transition: transform 0.25s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-4px);
+    }
+
+    .character-stage {
+      position: relative;
+      min-height: 680px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1000px;
+    }
+
+    .baubau {
+      position: relative;
+      z-index: 5;
+      display: block;
+      width: min(690px, 58vw);
+      max-height: 82vh;
+      object-fit: contain;
+      transform-origin: 50% 85%;
+      filter:
+        drop-shadow(0 38px 42px rgba(0, 0, 0, 0.58))
+        drop-shadow(0 0 38px rgba(255, 91, 163, 0.2));
+      animation: floatBauBau 5s ease-in-out infinite;
+      transition: transform 0.15s ease-out;
+      will-change: transform;
+    }
+
+    .shadow {
+      position: absolute;
+      z-index: 2;
+      bottom: 8%;
+      width: 44%;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.72);
+      filter: blur(18px);
+      animation: shadowMove 5s ease-in-out infinite;
+    }
+
+    .orbit {
+      position: absolute;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 50%;
+      transform: rotate(-18deg);
+    }
+
+    .orbit::after {
+      content: "";
+      position: absolute;
+      top: 10%;
+      left: 25%;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: white;
+      box-shadow:
+        0 0 12px white,
+        0 0 25px rgba(255, 111, 174, 0.85);
+    }
+
+    .orbit-one {
+      width: 520px;
+      height: 220px;
+      animation: orbitMove 14s linear infinite;
+    }
+
+    .orbit-two {
+      width: 690px;
+      height: 310px;
+      opacity: 0.45;
+      animation: orbitMove 22s linear infinite reverse;
+    }
+
+    .story {
+      position: relative;
+      z-index: 2;
+      min-height: 75vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 24px;
+      background:
+        radial-gradient(
+          circle at 20% 30%,
+          rgba(255, 105, 174, 0.08),
+          transparent 28%
+        ),
+        linear-gradient(#050307, #0a060d);
+    }
+
+    .story-card {
+      width: min(850px, 100%);
+      padding: clamp(35px, 7vw, 78px);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 32px;
+      background: rgba(255, 255, 255, 0.035);
+      backdrop-filter: blur(18px);
+    }
+
+    .story h2 {
+      margin: 0 0 25px;
+      font-size: clamp(45px, 7vw, 90px);
+      line-height: 0.95;
+      letter-spacing: -5px;
+    }
+
+    .story-text {
+      max-width: 680px;
+      margin: 0;
+      color: #bdb4c1;
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    @keyframes floatBauBau {
+      0%,
+      100% {
+        transform: translateY(0) rotate(-0.5deg);
+      }
+
+      50% {
+        transform: translateY(-19px) rotate(0.6deg);
+      }
+    }
+
+    @keyframes shadowMove {
+      0%,
+      100% {
+        transform: scaleX(1);
+        opacity: 0.65;
+      }
+
+      50% {
+        transform: scaleX(0.84);
+        opacity: 0.42;
+      }
+    }
+
+    @keyframes orbitMove {
+      from {
+        transform: rotate(-18deg);
+      }
+
+      to {
+        transform: rotate(342deg);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 90px;
+      }
+
+      .description {
+        margin: 0 auto;
+      }
+
+      .character-stage {
+        min-height: 490px;
+        margin-top: -20px;
+      }
+
+      .baubau {
+        width: min(650px, 94vw);
+        max-height: 62vh;
+      }
+
+      .orbit-one {
+        width: 410px;
+      }
+
+      .orbit-two {
+        width: 540px;
+      }
+    }
+
+    @media (max-width: 550px) {
+      .hero-content {
+        width: calc(100% - 28px);
+      }
+
+      h1 {
+        font-size: clamp(62px, 20vw, 95px);
+        letter-spacing: -5px;
+      }
+
+      .character-stage {
+        min-height: 390px;
+      }
+
+      .baubau {
+        width: 100vw;
+      }
+
+      .orbit-one {
+        width: 320px;
+        height: 145px;
+      }
+
+      .orbit-two {
+        width: 410px;
+        height: 190px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-    <video autoplay muted loop playsinline controls>
-        <source src="baubau-runs-and-scares-hero.mp4" type="video/mp4">
-        Your browser does not support HTML5 video.
-    </video>
+  <canvas id="space"></canvas>
+
+  <main class="hero">
+
+    <div class="hero-content">
+
+      <div class="text-content">
+
+        <p class="eyebrow">
+          A playful brand. A curious universe.
+        </p>
+
+        <h1>
+          Meet
+          <span>BauBau</span>
+        </h1>
+
+        <p class="tagline">
+          Where every little scare becomes a smile.
+        </p>
+
+        <p class="description">
+          An original mascot-driven world blending storytelling,
+          creativity, community and crypto.
+        </p>
+
+        <a class="button" href="#story">
+          Enter the story
+        </a>
+
+      </div>
+
+      <div class="character-stage" id="characterStage">
+
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+
+        <img
+          id="baubau"
+          class="baubau"
+          src="first-page-baubau-hero.png"
+          alt="BauBau"
+        >
+
+        <div class="shadow"></div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <section class="story" id="story">
+
+    <div class="story-card">
+
+      <p class="eyebrow">
+        The beginning
+      </p>
+
+      <h2>
+        A little mystery.<br>
+        A lot of personality.
+      </h2>
+
+      <p class="story-text">
+        BauBau is mischievous, curious and impossible to ignore.
+        This is the beginning of a story-driven brand and crypto
+        ecosystem built around art, community and playful experiences.
+      </p>
+
+    </div>
+
+  </section>
+
+  <script>
+    const canvas = document.getElementById("space");
+    const ctx = canvas.getContext("2d");
+
+    const characterStage =
+      document.getElementById("characterStage");
+
+    const baubau =
+      document.getElementById("baubau");
+
+    let width;
+    let height;
+    let pixelRatio;
+
+    let stars = [];
+    let pinkParticles = [];
+    let comets = [];
+
+    function resizeCanvas() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+
+      pixelRatio =
+        Math.min(window.devicePixelRatio || 1, 2);
+
+      canvas.width = width * pixelRatio;
+      canvas.height = height * pixelRatio;
+
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+
+      ctx.setTransform(
+        pixelRatio,
+        0,
+        0,
+        pixelRatio,
+        0,
+        0
+      );
+
+      stars = Array.from(
+        {
+          length: Math.floor(width / 5)
+        },
+        () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 1.3 + 0.2,
+          opacity: Math.random() * 0.7 + 0.15,
+          speed: Math.random() * 0.17 + 0.03
+        })
+      );
+
+      pinkParticles = Array.from(
+        {
+          length: Math.floor(width / 22)
+        },
+        () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 2.2 + 0.5,
+          opacity: Math.random() * 0.35 + 0.08,
+          speedX: (Math.random() - 0.5) * 0.12,
+          speedY: -(Math.random() * 0.18 + 0.03)
+        })
+      );
+    }
+
+    function createComet() {
+      if (
+        Math.random() < 0.0025 &&
+        comets.length < 2
+      ) {
+        comets.push({
+          x: Math.random() * width * 0.65,
+          y: Math.random() * height * 0.35,
+          speedX: 5 + Math.random() * 3,
+          speedY: 2 + Math.random() * 1.5,
+          life: 1
+        });
+      }
+    }
+
+    function drawSpace() {
+      ctx.clearRect(0, 0, width, height);
+
+      stars.forEach((star) => {
+        star.y += star.speed;
+
+        if (star.y > height) {
+          star.y = 0;
+        }
+
+        ctx.beginPath();
+
+        ctx.fillStyle =
+          `rgba(220, 216, 230, ${star.opacity})`;
+
+        ctx.arc(
+          star.x,
+          star.y,
+          star.radius,
+          0,
+          Math.PI * 2
+        );
+
+        ctx.fill();
+      });
+
+      pinkParticles.forEach((particle) => {
+        particle.x += particle.speedX;
+        particle.y += particle.speedY;
+
+        if (particle.y < -10) {
+          particle.y = height + 10;
+          particle.x = Math.random() * width;
+        }
+
+        ctx.beginPath();
+
+        ctx.fillStyle =
+          `rgba(255, 104, 173, ${particle.opacity})`;
+
+        ctx.shadowBlur = 12;
+        ctx.shadowColor =
+          "rgba(255, 104, 173, 0.45)";
+
+        ctx.arc(
+          particle.x,
+          particle.y,
+          particle.radius,
+          0,
+          Math.PI * 2
+        );
+
+        ctx.fill();
+
+        ctx.shadowBlur = 0;
+      });
+
+      createComet();
+
+      comets = comets.filter(
+        (comet) => comet.life > 0
+      );
+
+      comets.forEach((comet) => {
+        const gradient =
+          ctx.createLinearGradient(
+            comet.x - 130,
+            comet.y - 65,
+            comet.x,
+            comet.y
+          );
+
+        gradient.addColorStop(
+          0,
+          "rgba(255,255,255,0)"
+        );
+
+        gradient.addColorStop(
+          1,
+          `rgba(255,255,255,${comet.life})`
+        );
+
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = 1.5;
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+          comet.x - 130,
+          comet.y - 65
+        );
+
+        ctx.lineTo(
+          comet.x,
+          comet.y
+        );
+
+        ctx.stroke();
+
+        comet.x += comet.speedX;
+        comet.y += comet.speedY;
+        comet.life -= 0.012;
+      });
+
+      requestAnimationFrame(drawSpace);
+    }
+
+    window.addEventListener(
+      "resize",
+      resizeCanvas
+    );
+
+    resizeCanvas();
+    drawSpace();
+
+    if (
+      window.matchMedia("(pointer: fine)").matches
+    ) {
+      characterStage.addEventListener(
+        "mousemove",
+        (event) => {
+          const rectangle =
+            characterStage.getBoundingClientRect();
+
+          const x =
+            (event.clientX - rectangle.left) /
+              rectangle.width -
+            0.5;
+
+          const y =
+            (event.clientY - rectangle.top) /
+              rectangle.height -
+            0.5;
+
+          baubau.style.transform =
+            `translate3d(
+              ${x * 14}px,
+              ${y * 9}px,
+              0
+            )
+            rotateY(${x * 6}deg)
+            rotateX(${-y * 4}deg)`;
+        }
+      );
+
+      characterStage.addEventListener(
+        "mouseleave",
+        () => {
+          baubau.style.transform = "";
+        }
+      );
+    }
+  </script>
 
 </body>
 </html>
