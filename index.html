@@ -2,7 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta name="theme-color" content="#050307">
+
+  <meta
+    name="description"
+    content="MeetBauBau is a playful character born in Romania, inspired by Romanian folklore, and at the heart of a creative brand and crypto universe."
+  >
 
   <title>MeetBauBau</title>
 
@@ -18,17 +29,17 @@
     body {
       margin: 0;
       overflow-x: hidden;
-      background: #050307;
       color: #ffffff;
+      background: #050307;
       font-family: Arial, Helvetica, sans-serif;
     }
 
     #space {
       position: fixed;
       inset: 0;
+      z-index: 0;
       width: 100%;
       height: 100%;
-      z-index: 0;
       pointer-events: none;
     }
 
@@ -46,6 +57,8 @@
       content: "";
       position: absolute;
       inset: 0;
+      z-index: 1;
+
       background:
         radial-gradient(
           circle at 72% 48%,
@@ -54,7 +67,7 @@
         ),
         linear-gradient(
           90deg,
-          rgba(5, 3, 7, 0.97) 0%,
+          rgba(5, 3, 7, 0.98) 0%,
           rgba(5, 3, 7, 0.75) 48%,
           rgba(5, 3, 7, 0.42) 100%
         );
@@ -63,11 +76,14 @@
     .hero-content {
       position: relative;
       z-index: 2;
+
       width: min(1180px, calc(100% - 48px));
+
       display: grid;
       grid-template-columns: 0.9fr 1.1fr;
       align-items: center;
       gap: 35px;
+
       padding: 70px 0;
     }
 
@@ -78,7 +94,9 @@
 
     .eyebrow {
       margin: 0 0 16px;
+
       color: #ffafd1;
+
       font-size: 13px;
       font-weight: bold;
       letter-spacing: 3px;
@@ -87,6 +105,7 @@
 
     h1 {
       margin: 0;
+
       font-size: clamp(70px, 10vw, 145px);
       line-height: 0.82;
       letter-spacing: -8px;
@@ -94,20 +113,26 @@
 
     h1 span {
       display: block;
+
       color: #ff6fae;
-      text-shadow: 0 0 38px rgba(255, 111, 174, 0.32);
+
+      text-shadow:
+        0 0 38px rgba(255, 111, 174, 0.32);
     }
 
     .tagline {
       margin: 32px 0 12px;
+
       font-size: clamp(22px, 2.5vw, 34px);
       font-weight: bold;
     }
 
     .description {
-      max-width: 530px;
+      max-width: 550px;
       margin: 0;
+
       color: #bdb4c1;
+
       font-size: 17px;
       line-height: 1.7;
     }
@@ -115,44 +140,78 @@
     .button {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
+
       min-height: 52px;
       margin-top: 30px;
       padding: 0 25px;
-      border-radius: 999px;
+
       color: #190912;
-      background: linear-gradient(135deg, #ff9bc7, #ff5ca6);
-      box-shadow: 0 14px 35px rgba(255, 92, 166, 0.25);
+      background:
+        linear-gradient(
+          135deg,
+          #ff9bc7,
+          #ff5ca6
+        );
+
+      border-radius: 999px;
+
+      box-shadow:
+        0 14px 35px rgba(255, 92, 166, 0.25);
+
       font-weight: bold;
       text-decoration: none;
-      transition: transform 0.25s ease;
+
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
     }
 
     .button:hover {
       transform: translateY(-4px);
+
+      box-shadow:
+        0 18px 42px rgba(255, 92, 166, 0.34);
     }
 
     .character-stage {
       position: relative;
+
       min-height: 680px;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
       perspective: 1000px;
     }
 
     .baubau {
       position: relative;
       z-index: 5;
+
       display: block;
+
       width: min(690px, 58vw);
       max-height: 82vh;
+
       object-fit: contain;
       transform-origin: 50% 85%;
+
       filter:
-        drop-shadow(0 38px 42px rgba(0, 0, 0, 0.58))
-        drop-shadow(0 0 38px rgba(255, 91, 163, 0.2));
-      animation: floatBauBau 5s ease-in-out infinite;
-      transition: transform 0.15s ease-out;
+        drop-shadow(
+          0 38px 42px rgba(0, 0, 0, 0.58)
+        )
+        drop-shadow(
+          0 0 38px rgba(255, 91, 163, 0.2)
+        );
+
+      animation:
+        floatBauBau 5s ease-in-out infinite;
+
+      transition:
+        transform 0.15s ease-out;
+
       will-change: transform;
     }
 
@@ -160,77 +219,119 @@
       position: absolute;
       z-index: 2;
       bottom: 8%;
+
       width: 44%;
       height: 42px;
+
       border-radius: 50%;
-      background: rgba(0, 0, 0, 0.72);
+
+      background:
+        rgba(0, 0, 0, 0.72);
+
       filter: blur(18px);
-      animation: shadowMove 5s ease-in-out infinite;
+
+      animation:
+        shadowMove 5s ease-in-out infinite;
     }
 
     .orbit {
       position: absolute;
-      border: 1px solid rgba(255, 255, 255, 0.09);
+
+      border:
+        1px solid rgba(255, 255, 255, 0.09);
+
       border-radius: 50%;
+
       transform: rotate(-18deg);
     }
 
     .orbit::after {
       content: "";
+
       position: absolute;
       top: 10%;
       left: 25%;
+
       width: 8px;
       height: 8px;
+
       border-radius: 50%;
-      background: white;
+
+      background: #ffffff;
+
       box-shadow:
-        0 0 12px white,
+        0 0 12px #ffffff,
         0 0 25px rgba(255, 111, 174, 0.85);
     }
 
     .orbit-one {
       width: 520px;
       height: 220px;
-      animation: orbitMove 14s linear infinite;
+
+      animation:
+        orbitMove 14s linear infinite;
     }
 
     .orbit-two {
       width: 690px;
       height: 310px;
+
       opacity: 0.45;
-      animation: orbitMove 22s linear infinite reverse;
+
+      animation:
+        orbitMove 22s linear infinite reverse;
     }
 
     .story {
       position: relative;
       z-index: 2;
+
       min-height: 75vh;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
       padding: 100px 24px;
+
       background:
         radial-gradient(
           circle at 20% 30%,
           rgba(255, 105, 174, 0.08),
           transparent 28%
         ),
-        linear-gradient(#050307, #0a060d);
+        linear-gradient(
+          #050307,
+          #0a060d
+        );
     }
 
     .story-card {
       width: min(850px, 100%);
-      padding: clamp(35px, 7vw, 78px);
-      border: 1px solid rgba(255, 255, 255, 0.09);
+
+      padding:
+        clamp(35px, 7vw, 78px);
+
+      border:
+        1px solid rgba(255, 255, 255, 0.09);
+
       border-radius: 32px;
-      background: rgba(255, 255, 255, 0.035);
+
+      background:
+        rgba(255, 255, 255, 0.035);
+
       backdrop-filter: blur(18px);
+
+      box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.35);
     }
 
     .story h2 {
       margin: 0 0 25px;
-      font-size: clamp(45px, 7vw, 90px);
+
+      font-size:
+        clamp(45px, 7vw, 90px);
+
       line-height: 0.95;
       letter-spacing: -5px;
     }
@@ -238,7 +339,9 @@
     .story-text {
       max-width: 680px;
       margin: 0;
+
       color: #bdb4c1;
+
       font-size: 18px;
       line-height: 1.8;
     }
@@ -246,11 +349,15 @@
     @keyframes floatBauBau {
       0%,
       100% {
-        transform: translateY(0) rotate(-0.5deg);
+        transform:
+          translateY(0)
+          rotate(-0.5deg);
       }
 
       50% {
-        transform: translateY(-19px) rotate(0.6deg);
+        transform:
+          translateY(-19px)
+          rotate(0.6deg);
       }
     }
 
@@ -281,6 +388,7 @@
       .hero-content {
         grid-template-columns: 1fr;
         text-align: center;
+
         padding-top: 90px;
       }
 
@@ -313,7 +421,9 @@
       }
 
       h1 {
-        font-size: clamp(62px, 20vw, 95px);
+        font-size:
+          clamp(62px, 20vw, 95px);
+
         letter-spacing: -5px;
       }
 
@@ -335,6 +445,16 @@
         height: 190px;
       }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
 </head>
 
@@ -349,7 +469,7 @@
       <div class="text-content">
 
         <p class="eyebrow">
-          A playful brand. A curious universe.
+          Born in Romania. Made for the world.
         </p>
 
         <h1>
@@ -362,8 +482,10 @@
         </p>
 
         <p class="description">
-          An original mascot-driven world blending storytelling,
-          creativity, community and crypto.
+          Born in Romania and inspired by Romanian folklore,
+          BauBau is an original playful character at the heart
+          of a creative brand and crypto universe built around
+          storytelling, community and imagination.
         </p>
 
         <a class="button" href="#story">
@@ -372,7 +494,10 @@
 
       </div>
 
-      <div class="character-stage" id="characterStage">
+      <div
+        class="character-stage"
+        id="characterStage"
+      >
 
         <div class="orbit orbit-one"></div>
         <div class="orbit orbit-two"></div>
@@ -381,7 +506,7 @@
           id="baubau"
           class="baubau"
           src="first-page-baubau-hero.png"
-          alt="BauBau"
+          alt="BauBau, a playful character born in Romania"
         >
 
         <div class="shadow"></div>
@@ -397,18 +522,21 @@
     <div class="story-card">
 
       <p class="eyebrow">
-        The beginning
+        The Romanian beginning
       </p>
 
       <h2>
-        A little mystery.<br>
-        A lot of personality.
+        An old fear.<br>
+        A new story.
       </h2>
 
       <p class="story-text">
-        BauBau is mischievous, curious and impossible to ignore.
-        This is the beginning of a story-driven brand and crypto
-        ecosystem built around art, community and playful experiences.
+        Inspired by the Romanian “Bau-Bau” legend,
+        this mischievous and lovable character transforms
+        an old childhood fear into a playful universe of
+        stories, art, community and crypto experiences.
+        BauBau may pretend to scare you, but he is curious,
+        funny and never truly frightening.
       </p>
 
     </div>
@@ -416,14 +544,21 @@
   </section>
 
   <script>
-    const canvas = document.getElementById("space");
-    const ctx = canvas.getContext("2d");
+    const canvas =
+      document.getElementById("space");
+
+    const context =
+      canvas.getContext("2d");
 
     const characterStage =
-      document.getElementById("characterStage");
+      document.getElementById(
+        "characterStage"
+      );
 
     const baubau =
-      document.getElementById("baubau");
+      document.getElementById(
+        "baubau"
+      );
 
     let width;
     let height;
@@ -438,15 +573,24 @@
       height = window.innerHeight;
 
       pixelRatio =
-        Math.min(window.devicePixelRatio || 1, 2);
+        Math.min(
+          window.devicePixelRatio || 1,
+          2
+        );
 
-      canvas.width = width * pixelRatio;
-      canvas.height = height * pixelRatio;
+      canvas.width =
+        width * pixelRatio;
 
-      canvas.style.width = width + "px";
-      canvas.style.height = height + "px";
+      canvas.height =
+        height * pixelRatio;
 
-      ctx.setTransform(
+      canvas.style.width =
+        width + "px";
+
+      canvas.style.height =
+        height + "px";
+
+      context.setTransform(
         pixelRatio,
         0,
         0,
@@ -459,12 +603,19 @@
         {
           length: Math.floor(width / 5)
         },
+
         () => ({
           x: Math.random() * width,
           y: Math.random() * height,
-          radius: Math.random() * 1.3 + 0.2,
-          opacity: Math.random() * 0.7 + 0.15,
-          speed: Math.random() * 0.17 + 0.03
+
+          radius:
+            Math.random() * 1.3 + 0.2,
+
+          opacity:
+            Math.random() * 0.7 + 0.15,
+
+          speed:
+            Math.random() * 0.17 + 0.03
         })
       );
 
@@ -472,13 +623,22 @@
         {
           length: Math.floor(width / 22)
         },
+
         () => ({
           x: Math.random() * width,
           y: Math.random() * height,
-          radius: Math.random() * 2.2 + 0.5,
-          opacity: Math.random() * 0.35 + 0.08,
-          speedX: (Math.random() - 0.5) * 0.12,
-          speedY: -(Math.random() * 0.18 + 0.03)
+
+          radius:
+            Math.random() * 2.2 + 0.5,
+
+          opacity:
+            Math.random() * 0.35 + 0.08,
+
+          speedX:
+            (Math.random() - 0.5) * 0.12,
+
+          speedY:
+            -(Math.random() * 0.18 + 0.03)
         })
       );
     }
@@ -489,17 +649,30 @@
         comets.length < 2
       ) {
         comets.push({
-          x: Math.random() * width * 0.65,
-          y: Math.random() * height * 0.35,
-          speedX: 5 + Math.random() * 3,
-          speedY: 2 + Math.random() * 1.5,
+          x:
+            Math.random() * width * 0.65,
+
+          y:
+            Math.random() * height * 0.35,
+
+          speedX:
+            5 + Math.random() * 3,
+
+          speedY:
+            2 + Math.random() * 1.5,
+
           life: 1
         });
       }
     }
 
     function drawSpace() {
-      ctx.clearRect(0, 0, width, height);
+      context.clearRect(
+        0,
+        0,
+        width,
+        height
+      );
 
       stars.forEach((star) => {
         star.y += star.speed;
@@ -508,12 +681,17 @@
           star.y = 0;
         }
 
-        ctx.beginPath();
+        context.beginPath();
 
-        ctx.fillStyle =
-          `rgba(220, 216, 230, ${star.opacity})`;
+        context.fillStyle =
+          `rgba(
+            220,
+            216,
+            230,
+            ${star.opacity}
+          )`;
 
-        ctx.arc(
+        context.arc(
           star.x,
           star.y,
           star.radius,
@@ -521,39 +699,49 @@
           Math.PI * 2
         );
 
-        ctx.fill();
+        context.fill();
       });
 
-      pinkParticles.forEach((particle) => {
-        particle.x += particle.speedX;
-        particle.y += particle.speedY;
+      pinkParticles.forEach(
+        (particle) => {
+          particle.x += particle.speedX;
+          particle.y += particle.speedY;
 
-        if (particle.y < -10) {
-          particle.y = height + 10;
-          particle.x = Math.random() * width;
+          if (particle.y < -10) {
+            particle.y = height + 10;
+
+            particle.x =
+              Math.random() * width;
+          }
+
+          context.beginPath();
+
+          context.fillStyle =
+            `rgba(
+              255,
+              104,
+              173,
+              ${particle.opacity}
+            )`;
+
+          context.shadowBlur = 12;
+
+          context.shadowColor =
+            "rgba(255, 104, 173, 0.45)";
+
+          context.arc(
+            particle.x,
+            particle.y,
+            particle.radius,
+            0,
+            Math.PI * 2
+          );
+
+          context.fill();
+
+          context.shadowBlur = 0;
         }
-
-        ctx.beginPath();
-
-        ctx.fillStyle =
-          `rgba(255, 104, 173, ${particle.opacity})`;
-
-        ctx.shadowBlur = 12;
-        ctx.shadowColor =
-          "rgba(255, 104, 173, 0.45)";
-
-        ctx.arc(
-          particle.x,
-          particle.y,
-          particle.radius,
-          0,
-          Math.PI * 2
-        );
-
-        ctx.fill();
-
-        ctx.shadowBlur = 0;
-      });
+      );
 
       createComet();
 
@@ -563,7 +751,7 @@
 
       comets.forEach((comet) => {
         const gradient =
-          ctx.createLinearGradient(
+          context.createLinearGradient(
             comet.x - 130,
             comet.y - 65,
             comet.x,
@@ -572,37 +760,66 @@
 
         gradient.addColorStop(
           0,
-          "rgba(255,255,255,0)"
+          "rgba(255, 255, 255, 0)"
         );
 
         gradient.addColorStop(
           1,
-          `rgba(255,255,255,${comet.life})`
+          `rgba(
+            255,
+            255,
+            255,
+            ${comet.life}
+          )`
         );
 
-        ctx.strokeStyle = gradient;
-        ctx.lineWidth = 1.5;
+        context.strokeStyle =
+          gradient;
 
-        ctx.beginPath();
+        context.lineWidth = 1.5;
 
-        ctx.moveTo(
+        context.beginPath();
+
+        context.moveTo(
           comet.x - 130,
           comet.y - 65
         );
 
-        ctx.lineTo(
+        context.lineTo(
           comet.x,
           comet.y
         );
 
-        ctx.stroke();
+        context.stroke();
+
+        context.beginPath();
+
+        context.fillStyle =
+          `rgba(
+            255,
+            255,
+            255,
+            ${comet.life}
+          )`;
+
+        context.arc(
+          comet.x,
+          comet.y,
+          2.2,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
 
         comet.x += comet.speedX;
         comet.y += comet.speedY;
         comet.life -= 0.012;
       });
 
-      requestAnimationFrame(drawSpace);
+      requestAnimationFrame(
+        drawSpace
+      );
     }
 
     window.addEventListener(
@@ -614,21 +831,31 @@
     drawSpace();
 
     if (
-      window.matchMedia("(pointer: fine)").matches
+      window
+        .matchMedia("(pointer: fine)")
+        .matches
     ) {
       characterStage.addEventListener(
         "mousemove",
+
         (event) => {
           const rectangle =
-            characterStage.getBoundingClientRect();
+            characterStage
+              .getBoundingClientRect();
 
           const x =
-            (event.clientX - rectangle.left) /
+            (
+              event.clientX -
+              rectangle.left
+            ) /
               rectangle.width -
             0.5;
 
           const y =
-            (event.clientY - rectangle.top) /
+            (
+              event.clientY -
+              rectangle.top
+            ) /
               rectangle.height -
             0.5;
 
@@ -645,6 +872,7 @@
 
       characterStage.addEventListener(
         "mouseleave",
+
         () => {
           baubau.style.transform = "";
         }
